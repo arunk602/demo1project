@@ -31,7 +31,7 @@ jobs:
         uses: azure/arm-deploy@v1
         with:
           subscriptionId: fa236b7f-954f-4834-8294-f0a2b5cea417
-          resourceGroupName: AgenticAITraining
+          resourceGroupName: arun1testing-RG
           template: arun1adf/ARMTemplateForFactory.json
           parameters: arun1adf/ARMTemplateParametersForFactory.json
           deploymentName: adf_deployment_${{ github.run_id }}
