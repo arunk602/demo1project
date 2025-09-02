@@ -36,4 +36,4 @@ jobs:
           parameters: arun1adf/ARMTemplateParametersForFactory.json
           deploymentName: adf_deployment_${{ github.run_id }}
           additionalArguments: >
-            --parameters factoryName=<TEST_ADF_NAME>
+            --parameters factoryName = arun1adfTest
