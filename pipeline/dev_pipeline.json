@@ -30,7 +30,7 @@
 				}
 			},
 			{
-				"name": "Copy",
+				"name": "Copy_excel_to_csv",
 				"type": "Copy",
 				"dependsOn": [
 					{
