@@ -17,6 +17,8 @@ jobs:
         with:
           ref: adf_publish
           fetch-depth: 0
+      - name: List repo files
+        run: ls -R
 
       - name: Azure login (OIDC)
         uses: azure/login@v2
