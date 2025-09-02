@@ -30,7 +30,7 @@
 				}
 			},
 			{
-				"name": "Copy",
+				"name": "Copy_src_to_sink",
 				"type": "Copy",
 				"dependsOn": [
 					{
