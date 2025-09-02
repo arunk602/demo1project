@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup",
+				"name": "Lookup_excelfile",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -34,7 +34,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Lookup",
+						"activity": "Lookup_excelfile",
 						"dependencyConditions": [
 							"Completed"
 						]
