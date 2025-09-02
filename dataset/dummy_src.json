@@ -1,0 +1,55 @@
+{
+	"name": "dummy_src",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Question 10",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Excel Dummy data.xlsx",
+				"folderPath": "raw",
+				"fileSystem": "demo1project"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Sr.No",
+				"type": "String"
+			},
+			{
+				"name": "First Name",
+				"type": "String"
+			},
+			{
+				"name": "Last Name",
+				"type": "String"
+			},
+			{
+				"name": "Gender",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Age",
+				"type": "String"
+			},
+			{
+				"name": "Date",
+				"type": "String"
+			},
+			{
+				"name": "Id",
+				"type": "String"
+			}
+		]
+	}
+}
