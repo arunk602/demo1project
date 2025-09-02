@@ -1,1 +1,38 @@
+# .github/workflows/deploy-adf.yml
+name: Deploy ADF
 
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write       # required for OIDC
+  contents: read        # to checkout
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Switch to adf_publish branch
+        run: |
+          git fetch origin adf_publish
+          git checkout adf_publish
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: <APP_CLIENT_ID>      # from Step 1
+          tenant-id: <TENANT_ID>          # from Step 1
+          subscription-id: <SUBSCRIPTION_ID>
+
+      - name: Deploy ADF ARM template
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: <SUBSCRIPTION_ID>
+          resourceGroupName: <RESOURCE_GROUP>
+          template: ARMTemplateForFactory.json
+          parameters: ARMTemplateParametersForFactory.json
+          deploymentName: adf_deployment_${{ github.run_id }}
