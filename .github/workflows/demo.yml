@@ -30,7 +30,7 @@ jobs:
       - name: Deploy ADF ARM template
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: <SUBSCRIPTION_ID>
+          subscriptionId: fa236b7f-954f-4834-8294-f0a2b5cea417
           resourceGroupName: AgenticAITraining
           template: ARMTemplateForFactory.json
           parameters: ARMTemplateParametersForFactory.json
