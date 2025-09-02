@@ -26,6 +26,10 @@ jobs:
           client-id: 20daa482-ca24-49b9-b86f-272cdc5b9a19   
           tenant-id: 28927d03-b60a-481e-816e-469052dc5e62   
           subscription-id: fa236b7f-954f-4834-8294-f0a2b5cea417
+      - name: Verify Azure context
+        run: |
+          az account show
+          az group list --output table
 
       - name: Deploy ADF ARM template
         uses: azure/arm-deploy@v1
