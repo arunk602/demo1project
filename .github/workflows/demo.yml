@@ -14,11 +14,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Switch to adf_publish branch
-        run: |
-          git fetch origin adf_publish
-          git checkout adf_publish
+        with:
+          ref: adf_publish
+          fetch-depth: 0
 
       - name: Azure login (OIDC)
         uses: azure/login@v2
