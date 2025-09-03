@@ -27,7 +27,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup1",
+						"name": "Lookup_excelfile",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -55,11 +55,11 @@
 						}
 					},
 					{
-						"name": "Copy data1",
+						"name": "Copy_src_to_sink",
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "Lookup1",
+								"activity": "Lookup_excelfile",
 								"dependencyConditions": [
 									"Completed"
 								]
