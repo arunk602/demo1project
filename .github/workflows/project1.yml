@@ -31,13 +31,14 @@ jobs:
           az account show
           az group list --output table
 
-      - name: Deploy ADF ARM template
+      - name: Deploy ARM template to Test ADF
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: fa236b7f-954f-4834-8294-f0a2b5cea417
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           resourceGroupName: arun1testing-RG
           template: arun1adf/ARMTemplateForFactory.json
           parameters: arun1adf/ARMTemplateParametersForFactory.json
-          deploymentName: adf_deployment_${{ github.run_id }}
+          deploymentName: adf_test_deployment_${{ github.run_id }}
           additionalArguments: >
-            --parameters factoryName = arun1adfTest
+            --parameters factoryName=adf-test
+
