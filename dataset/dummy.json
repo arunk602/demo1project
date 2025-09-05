@@ -8,7 +8,6 @@
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
-			"sheetName": "Question 10",
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "Excel Dummy data.xlsx",
@@ -42,5 +41,6 @@
 				"type": "String"
 			}
 		]
-	}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
 }

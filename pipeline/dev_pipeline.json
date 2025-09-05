@@ -36,7 +36,69 @@
 					{
 						"activity": "Lookup_excelfile",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "dummy_src",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stage_dummy",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy_dummy",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Copy_src_to_sink",
+						"dependencyConditions": [
+							"Succeeded"
 						]
 					}
 				],
@@ -92,6 +154,8 @@
 				]
 			}
 		],
-		"annotations": []
-	}
+		"annotations": [],
+		"lastPublishTime": "2025-09-05T04:50:13Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }
