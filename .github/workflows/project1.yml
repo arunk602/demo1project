@@ -18,8 +18,8 @@ jobs:
           ref: adf_publish
           fetch-depth: 0
 
-      - name: Azure login (OIDC)
-        uses: azure/login@v2
+      # - name: Azure login (OIDC)
+      #   uses: azure/login@v2
         # with:
         #   client-id: ${{ secrets.AzureClientID }}   # optional if using OIDC, or omit this line
         #   tenant-id: ${{ secrets.AzureTenantID }}   # optional if using OIDC, or omit this line
