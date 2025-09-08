@@ -5,8 +5,8 @@ on:
     branches: [ main ]
 
 permissions:
-  id-token: write       
-  contents: read        
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
@@ -17,15 +17,25 @@ jobs:
         with:
           ref: adf_publish
           fetch-depth: 0
-      - name: List repo files
-        run: ls -R
 
       - name: Azure login (OIDC)
         uses: azure/login@v2
-        with:
-          client-id: 20daa482-ca24-49b9-b86f-272cdc5b9a19   
-          tenant-id: 28927d03-b60a-481e-816e-469052dc5e62   
-          subscription-id: fa236b7f-954f-4834-8294-f0a2b5cea417
+        # with:
+          # client-id: ${{ secrets.AZURE_CLIENT_ID }}   # optional if using OIDC, or omit this line
+          # tenant-id: ${{ secrets.AZURE_TENANT_ID }}   # optional if using OIDC, or omit this line
+          # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}   # optional if using OIDC, or omit this line
+
+      - name: Get Key Vault secrets
+        env:
+          KEYVAULT_NAME: kv1demoproject
+        run: |
+          export AZ_CLIENT_ID=$(az keyvault secret show --name ClientId --vault-name $KEYVAULT_NAME --query value -o tsv)
+          export AZ_TENANT_ID=$(az keyvault secret show --name TenantId --vault-name $KEYVAULT_NAME --query value -o tsv)
+          export AZ_SUBSCRIPTION_ID=$(az keyvault secret show --name SubscriptionId --vault-name $KEYVAULT_NAME --query value -o tsv)
+          echo "AZ_CLIENT_ID=$AZ_CLIENT_ID" >> $GITHUB_ENV
+          echo "AZ_TENANT_ID=$AZ_TENANT_ID" >> $GITHUB_ENV
+          echo "AZ_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID" >> $GITHUB_ENV
+
       - name: Verify Azure context
         run: |
           az account show
@@ -34,11 +44,56 @@ jobs:
       - name: Deploy ARM template to Test ADF
         uses: azure/arm-deploy@v1
         with:
-          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscriptionId: ${{ env.AZ_SUBSCRIPTION_ID }}
           resourceGroupName: arun1testing-RG
           template: arun1adf/ARMTemplateForFactory.json
           parameters: arun1adf/ARMTemplateParametersForFactory.json
           deploymentName: adf_test_deployment_${{ github.run_id }}
           additionalArguments: >
             --parameters factoryName=arun1adfTest
+
+
+# name: Deploy ADF
+
+# on:
+#   push:
+#     branches: [ main ]
+
+# permissions:
+#   id-token: write       
+#   contents: read        
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#         with:
+#           ref: adf_publish
+#           fetch-depth: 0
+#       - name: List repo files
+#         run: ls -R
+
+#       - name: Azure login (OIDC)
+#         uses: azure/login@v2
+#         with:
+#           client-id: 20daa482-ca24-49b9-b86f-272cdc5b9a19   
+#           tenant-id: 28927d03-b60a-481e-816e-469052dc5e62   
+#           subscription-id: fa236b7f-954f-4834-8294-f0a2b5cea417
+#       - name: Verify Azure context
+#         run: |
+#           az account show
+#           az group list --output table
+
+#       - name: Deploy ARM template to Test ADF
+#         uses: azure/arm-deploy@v1
+#         with:
+#           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#           resourceGroupName: arun1testing-RG
+#           template: arun1adf/ARMTemplateForFactory.json
+#           parameters: arun1adf/ARMTemplateParametersForFactory.json
+#           deploymentName: adf_test_deployment_${{ github.run_id }}
+#           additionalArguments: >
+#             --parameters factoryName=arun1adfTest
 
