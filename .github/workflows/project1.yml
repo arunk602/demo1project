@@ -18,12 +18,12 @@ jobs:
           ref: adf_publish
           fetch-depth: 0
 
-      # - name: Azure login (OIDC)
-      #   uses: azure/login@v2
-        # with:
-        #   client-id: ${{ secrets.AzureClientID }}   # optional if using OIDC, or omit this line
-        #   tenant-id: ${{ secrets.AzureTenantID }}   # optional if using OIDC, or omit this line
-        #   subscription-id: ${{ secrets.AzureSubscriptionID }}   # optional if using OIDC, or omit this line
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.Azure_Client_ID }}   # optional if using OIDC, or omit this line
+          tenant-id: ${{ secrets.Azure_Tenant_ID }}   # optional if using OIDC, or omit this line
+          subscription-id: ${{ secrets.Azure_Subscription_ID }}   # optional if using OIDC, or omit this line
 
       - name: Get Key Vault secrets
         env:
