@@ -21,20 +21,20 @@ jobs:
       - name: Azure login (OIDC)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}   # optional if using OIDC, or omit this line
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}   # optional if using OIDC, or omit this line
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}   # optional if using OIDC, or omit this line
+          client-id: ${{ secrets.AzureClientID }}   # optional if using OIDC, or omit this line
+          tenant-id: ${{ secrets.AzureTenantID }}   # optional if using OIDC, or omit this line
+          subscription-id: ${{ secrets.AzureSubscriptionID }}   # optional if using OIDC, or omit this line
 
       - name: Get Key Vault secrets
         env:
           KEYVAULT_NAME: kv1demoproject
         run: |
-          export AZ_CLIENT_ID=$(az keyvault secret show --name ClientId --vault-name $KEYVAULT_NAME --query value -o tsv)
-          export AZ_TENANT_ID=$(az keyvault secret show --name TenantId --vault-name $KEYVAULT_NAME --query value -o tsv)
-          export AZ_SUBSCRIPTION_ID=$(az keyvault secret show --name SubscriptionId --vault-name $KEYVAULT_NAME --query value -o tsv)
-          echo "AZ_CLIENT_ID=$AZ_CLIENT_ID" >> $GITHUB_ENV
-          echo "AZ_TENANT_ID=$AZ_TENANT_ID" >> $GITHUB_ENV
-          echo "AZ_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID" >> $GITHUB_ENV
+          export AzureClientID=$(az keyvault secret show --name ClientId --vault-name $KEYVAULT_NAME --query value -o tsv)
+          export AzureTenantID=$(az keyvault secret show --name TenantId --vault-name $KEYVAULT_NAME --query value -o tsv)
+          export AzureSubscriptionID=$(az keyvault secret show --name SubscriptionId --vault-name $KEYVAULT_NAME --query value -o tsv)
+          echo "AZ_CLIENT_ID=$AzureClientID" >> $GITHUB_ENV
+          echo "AZ_TENANT_ID=$AzureTenantID" >> $GITHUB_ENV
+          echo "AZ_SUBSCRIPTION_ID=$AzureSubscriptionID" >> $GITHUB_ENV
 
       - name: Verify Azure context
         run: |
