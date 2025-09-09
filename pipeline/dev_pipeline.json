@@ -5,14 +5,7 @@
 			{
 				"name": "Lookup_excelfile",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Copy_src_to_sink",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
