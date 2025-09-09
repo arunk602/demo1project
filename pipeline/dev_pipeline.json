@@ -11,12 +11,6 @@
 						"dependencyConditions": [
 							"Failed"
 						]
-					},
-					{
-						"activity": "Copy_dummy",
-						"dependencyConditions": [
-							"Failed"
-						]
 					}
 				],
 				"policy": {
